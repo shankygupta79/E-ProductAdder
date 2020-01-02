@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://unpkg.com/axios@0.2.1/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href='https://e-prod-adder.herokuapp.com/css'>
+    <link rel="stylesheet" href='https://e-prod-adder.herokuapp.com/add_cat/css'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    
+  <title>Add New Category</title>
+</head>
+<body >
+    
+
+<div id="Add_Cat">
+  <div class="navbar-container row" >
+    <div class="col-sm-2"></div>
+    <input class=" col-sm-5 form-control text2"  v-model="search" type="text" id="text2" placeholder="Search">
+    <button class="col-sm-2 btn btn-success" v-if="bool2" id="myBtn" type="submit">Search</button>
+    <div class="col-sm-1" v-if="!bool2"></div>
+    <button class="col-sm-2 btn btn-success" v-if="!bool2" id="myBtn" type="submit">Search</button> 
+    <div class="col-sm-2"></div>
+  </div>
+<div class="row modal"  id="myModal">
+  <div class="row " >
+      <div class="col-sm-2" style="float: left;"></div>
+      <div    class="col-sm-6">
+       <input class=" form-control" style="box-shadow: 1px 5px 7px 0 rgba(0,0,0,0.8)"  v-model="search" type="text" id="text" placeholder="Search">
+        <ul style="box-shadow: 1px 5px 7px 0 rgba(0,0,0,0.8);list-style-type:none;"  class="list-group-item">
+        <li  v-for="(i,i1) in list" v-if="i1<4" ><a v-bind:href="'preview?id='+i['P_ID']">{{i['name']}}</a></li>
+        </ul>
+      </div>
+       <div class="col-sm-4" style="float: left;"></div></div>
+  </div>
+  <div class="navbar-container bg row">
+    <ul>
+            <li class="nav-link" style="margin-right: 10px">
+                    <a href="/">Home</a>
+                    <div class="underline"></div>
+            </li>
+            <li class="nav-link" style="margin-right: 10px">
+                    <a  href="/cart">Cart</a>
+                    <div class="underline"></div>
+            </li>
+            <li class="nav-link" style="margin-right: 10px">
+              <a href="/add_prod">Add Product</a>
+              <div class="underline"></div>
+            </li>
+            <li class="nav-link active-link" style="margin-right: 10px;">
+                <a  href="/add_cat">Add Category</a>
+                <div class="underline"></div>
+            </li>
+          </li>
+          <li class="nav-link" style="margin-right: 10px;">
+              <a href="/manage_prod">Manage Product</a>
+              <div class="underline"></div>
+          </li>
+            <li class="nav-link"style="margin-right: 10px">
+              <a href="/view_cat">View Categories</a>
+              <div class="underline"></div>
+            </li>
+            
+          </ul><br>
+  </div><br>  
+  <h1 style="text-align: center;" >ADD NEW CATEGORY </h1 style="text-align: center;" >
+  <div class="row ft">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-3"><b>Category Name</b></div>
+  <input class=" form-control col-sm-5 ft" v-model="name" placeholder ="Enter the new category name (eg- MOBILE)" ></input>
+  <div class="col-sm-2"></div>
+  </div>
+  
+    <div class="row ft" v-for="(y,z) in fieldlist">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-3"><b>{{y}}</b></div>
+      <div class="col-sm-5 "> {{taglist[z]}} </div>
+      <div class="col-sm-2"></div>
+      </div>
+      
+    <hr>
+    <div class="row ft">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-3"> Add Field</div>
+      <input  class=" form-control ft col-sm-2" v-model="fieldname" placeholder ="Size/Color/Design" ></input>
+      
+      <button type="button" class="btn btn-info col-sm-1" @click='addfield(fieldname)'>ADD</button>
+      <div class="col-sm-3"></div>
+      </div>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3 ">Field Specifications</div>
+        <select v-model="dropdown" class="form-control col-sm-2" id="sel1">
+          <option  v-for="x in fieldlist">{{x}}</option>
+        </select>
+        <input  class="tags form-control col-sm-2" v-model="tagname" placeholder ="Red/Blue/L/XL..." ></input>
+        
+        <button type="button" class="btn btn button2 col-sm-1 tags" @click='addtag(tagname)'>✓</button>
+        
+        <div class="col-sm-2"></div>
+        </div><br><br>
+        
+        <div class="row">
+          <div class="col-sm-3"></div>
+          <button type="button" class="btn btn-success button1 col-sm-6 tags" @click='submit()'>Add Category</button>
+        <div class="col-sm-3"></div>
+        </div>
+        <div class="row" style="display: none;" id="success" >
+          
+          <div  style="text-align: center; color: red;"><b>ADDED SUCCESSFULLY</b></div>
+
+        </div>
+        
+
+
+
+
+
+
+</div>
+</body>
+<script>
+    const log=new Vue({
+      el:"#Add_Cat",
+      data:{
+         name:'',
+         tagname:'',
+         search:'',list:[],actual:[],
+         taglist:['','','','','','','','','','','','','',''],
+         fieldlist:[],
+         fieldname:'',fieldlistfinal:'',taglistfinal:'',
+         dropdown:'',
+         bool:'',bool2:1,
+
+      },
+      created:function(){
+               this.load();
+      },
+      methods:{
+            load:function(){
+                   var app=this;
+                   axios.get('https://e-prod-adder.herokuapp.com/names')
+                   .then(function(Response){
+                        for(var i=0;i<Response.length;i++){
+                          app.list.push(Response[i])
+                        }
+                         app.actual=app.list;
+                       
+                   })
+                   
+                },addtag(tagname){
+                  this.tagname='';
+                  var idx=this.fieldlist.indexOf(this.dropdown);
+                  this.taglist[idx]=this.taglist[idx]+(this.capatialize(tagname));
+                  
+                },addfield(tagname){
+                  this.fieldlist.push(this.capatializef(tagname));
+                  this.fieldname='';
+                },capatialize(x){
+                  x=x[0].toUpperCase()+x.substring(1)+" , ";
+                  return x;
+                },capatializef(x){
+                  x=x[0].toUpperCase()+x.substring(1);
+                  return x;
+                },relo(){
+                  this.bool='';this.name='';this.tagname='';
+                  this.taglist=['','','','','','','',''];this.fieldlist=[];this.fieldname='';
+                  this.dropdown='';this.fieldlistfinal='',this.taglistfinal=''
+                },submit(){
+                  var _this=this;
+                  for(i=0;i< this.fieldlist.length;i++){
+                    this.fieldlistfinal=this.fieldlistfinal+this.fieldlist[i]+";;";
+                  }
+                  for(i=0;i< this.fieldlist.length;i++){
+                    this.taglistfinal=this.taglistfinal+this.taglist[i]+";;";
+                  }
+                  $.post('/add_cat/add',{
+                    name:this.name,field:this.fieldlistfinal,tag:this.taglistfinal,
+                  },function(data){
+                      if(data==1){
+                        var s = document.getElementById("success");
+                        s.style.display = "block";
+                        
+                        setTimeout(function(){
+                          s.style.display = "none";
+                          _this.relo();
+                        }, 2000);
+                        
+                        
+                      }
+                  })
+                  
+                  
+                },searching(){
+                  var arr=[];
+                  
+                  for(i=0;i<this.list.length;i++){
+                    if(this.list[i]['name'].toLowerCase().includes(this.search.toLowerCase())){
+                      arr.push(this.list[i]);
+                    }
+                  }
+                  this.list=arr;
+
+
+                }
+
+      } 
+    })
+    var modal = document.getElementById("myModal");
+    var lastentry = "";
+    window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+            log.bool2=1;
+          }
+        }
+    $('#text ,#text2').keyup(function(event) {
+      if($('#text ,#text2').val() != lastentry) {   
+          modal.style.display = "block";
+          log.bool2=0;
+          if(log.search.length < lastentry.length){
+            log.list=log.actual;
+          }
+          log.searching();   
+      }
+      lastentry = $('#text,#text2').val()
+    });
+    
+</script>
+</html>

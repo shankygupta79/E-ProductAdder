@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://unpkg.com/axios@0.2.1/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href='https://e-prod-adder.herokuapp.com/css'><link rel="stylesheet" href='https://e-prod-adder.herokuapp.com/cart/css2'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+  <title>Cart </title>
+</head>
+    
+<div id="Cart">
+  <div class="navbar-container row" >
+    <div class="col-sm-2"></div>
+    <input class=" col-sm-5 form-control text2"  v-model="search" type="text" id="text2" placeholder="Search">
+    <button class="col-sm-2 btn btn-success" v-if="bool2" id="myBtn" type="submit">Search</button>
+    <div class="col-sm-1" v-if="!bool2"></div>
+    <button class="col-sm-2 btn btn-success" v-if="!bool2" id="myBtn" type="submit">Search</button> 
+    <div class="col-sm-2"></div>
+  </div>
+<div class="row modal"  id="myModal">
+  <div class="row " >
+      <div class="col-sm-2" style="float: left;"></div>
+      <div    class="col-sm-6">
+       <input class=" form-control" style="box-shadow: 1px 5px 7px 0 rgba(0,0,0,0.8)"  v-model="search" type="text" id="text" placeholder="Search">
+        <ul style="box-shadow: 1px 5px 7px 0 rgba(0,0,0,0.8);list-style-type:none;"  class="list-group-item">
+        <li  v-for="(i,i1) in list" v-if="i1<4" ><a v-bind:href="'preview?id='+i['P_ID']">{{i['name']}}</a></li>
+        </ul>
+      </div>
+       <div class="col-sm-4" style="float: left;"></div></div>
+  </div>
+  <div class="navbar-container bg row">
+    <ul>
+            <li class="nav-link" style="margin-right: 10px">
+                    <a href="/">Home</a>
+                    <div class="underline"></div>
+            </li>
+            <li class="nav-link active-link" style="margin-right: 10px">
+                    <a  href="/cart">Cart</a>
+                    <div class="underline"></div>
+            </li>
+            <li class="nav-link" style="margin-right: 10px">
+              <a href="/add_prod">Add Product</a>
+              <div class="underline"></div>
+            </li>
+            <li class="nav-link" style="margin-right: 10px;">
+                <a  href="/add_cat">Add Category</a>
+                <div class="underline"></div>
+            </li>
+          </li>
+          <li class="nav-link" style="margin-right: 10px;">
+              <a href="/manage_prod">Manage Product</a>
+              <div class="underline"></div>
+          </li>
+            <li class="nav-link"style="margin-right: 10px">
+              <a href="/view_cat">View Categories</a>
+              <div class="underline"></div>
+            </li>
+            
+          </ul><br>
+  </div><br>
+  <div class="row">
+    <div class="col-sm-9">
+  <div class="row"><div class="col-sm-1"></div><h3 class="col-sm-8">Shopping Cart</h3><span class="col-sm-3 price2">Price</span></div>
+  <hr><div v-for="(i,i1) in cart" >
+    <div class="row"><div class="col-sm-1"></div>
+      <img class="card-img-top xy col-sm-2"  style="width: 300px;height: 150px;" v-bind:src="i.img1" alt="Card image cap" >
+      
+      <div class="col-sm-6"><div class="name"><h5>{{i.name}}</h5></div>
+         
+        <div class="company ">By {{i.company}}  
+        <span class="category">In {{i.category}} </span></div>
+        <div class="instock" ><b><font color="green">IN STOCK</font></b></div>
+        <div class="category2">Gift Option not available right now!</div>
+        <span style="display: inline;">Quantity : </span>
+        <select v-model='value[i1]'   v-if="!place[i1]" @change='toggle(i1)' >
+          <option  v-for="(x,x1) in quantity" :value="x1+1" >{{x}}</option>
+        </select><span>  &nbsp</span>
+        <input v-if="place[i1]" v-model="value[i1]" type="number" placeholder="Enter Quantity"></input>  
+        <button @click="remove(i.P_ID)" >Remove</button>
+
+
+      </div>
+      <span class="price col-sm-3">₹{{i.price}}</span><br></div>
+        <hr>
+        
+  </div></div>
+  <div class="col-sm-3 " style="height:90px">
+    <br><br><br>
+    <div class="row"><div class="col-sm-9 card">
+    <h5 >&nbsp SUBTOTAL : <b class="price">₹ {{total}}</b></h5><button class="btn btn-warning but" @click="checkout()" id="myBtn">Proceed to Checkout</button>
+    <div class="col-sm-3"></div></div></div>
+
+</div>
+
+</div>
+
+</div>
+</body>
+<script>
+    var log=new Vue({
+      el:"#Cart",
+      data:{
+        search:'',list:[],actual:[],
+         cartid:'',cart:[],total:0,
+         quantity:[1,2,3,4,5,6,7,8,9,'10+'],
+         value:[],place:[],bool2:1,
+      },
+      created:function(){
+               this.load();
+      },
+      methods:{
+            load:function(){
+                   var app=this;
+                   axios.get('https://e-prod-adder.herokuapp.com/cart/incart')
+                   .then(function(Response){
+                      app.cartid=Response;                      
+                   })
+                   axios.get('https://e-prod-adder.herokuapp.com/qprod')
+                   .then(function(Response){
+                        for(var i=0;i<Response.length;i++){
+                          app.list.push(Response[i]);
+                          for(var j=0;j<app.cartid.length;j++){
+                            if(app.cartid[j]==Response[i].P_ID){
+                              app.cart.push(Response[i]);
+                              app.total=app.total+Response[i].price;
+                            }
+                          }
+                        }
+                        for(var i=0;i<app.cart.length;i++){
+                          app.value.push(1);
+                          app.place.push(0);
+                        }
+                         app.actual=app.list;
+                       
+                   })
+                   
+                },searching(){
+                  var arr=[];
+                  
+                  for(i=0;i<this.list.length;i++){
+                    if(this.list[i]['name'].toLowerCase().includes(this.search.toLowerCase())){
+                      arr.push(this.list[i]);
+                    }
+                  }
+                  this.list=arr;
+
+
+                },checkout(){
+                },remove(x){
+                  $.post('/cart/remove',{
+                    id:x,
+                  },function(data){
+                      window.location.href="https://e-prod-adder.herokuapp.com/cart";
+                  })
+                },toggle(i1){
+                  if(this.value[i1]>=10){
+                    this.place[i1]=1;
+                  }else{
+                    this.place[i1]=0;
+                  }
+                }
+      } 
+    })
+    var modal = document.getElementById("myModal");
+    var lastentry = "";
+    window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+            log.bool2=1;
+          }
+        }
+    $('#text ,#text2').keyup(function(event) {
+      if($('#text ,#text2').val() != lastentry) {   
+          modal.style.display = "block";
+          log.bool2=0;
+          if(log.search.length < lastentry.length){
+            log.list=log.actual;
+          }
+          log.searching();   
+      }
+      lastentry = $('#text,#text2').val()
+    });
+    
+    
+</script>
+</html>

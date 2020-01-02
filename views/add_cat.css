@@ -1,0 +1,18 @@
+.tags{
+    font-size: 13px;
+}
+.ft{
+    font-size: 15px;
+}
+.bord{
+    border-width: 2px;
+    border-color: goldenrod;
+    border-style: solid;
+    border-radius: 10%;
+}
+.button1{
+    background-image:linear-gradient(#07f246,#035c1b);
+}
+.button2{
+    background-image:linear-gradient(#fa1ebc,#870166);
+}

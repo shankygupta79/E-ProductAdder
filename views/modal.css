@@ -1,0 +1,102 @@
+.modal {
+    display: none; /* Hidden by default */
+    padding-top: 10px; /* Location of the box */
+}
+  .modal-content {
+    border: 1px solid #888;
+   
+  }
+
+  .modal2 {
+    display: none;
+    position: fixed; 
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; 
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4); 
+  }
+  
+  .modal2-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; 
+  }
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  a {
+    outline: none;
+  }
+  .bg{
+    box-shadow: 0px 3px 2px 0px #333333;
+  }
+  .navbar-container {
+    text-align: center;
+    background-color: #009688;
+    padding: 10px;
+  }
+  
+  .navbar-container ul {
+ 
+    text-align: right;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .navbar-container ul li {
+    display: inline-block;
+    font-size: 16px;
+  }
+  
+  .navbar-container ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    display: inline-block;	
+    padding: 10px;
+    transition: color 0.5s;
+  }
+  
+  .navbar-container ul li .underline {
+    height: 3px;
+    background-color: transparent;
+    width: 0%;
+    transition: width 0.2s, background-color 0.5s;
+    margin: 0 auto;
+  }
+  
+  .navbar-container ul li.active-link .underline {
+    width: 100%;
+    background-color: white;
+  }
+  
+  .navbar-container ul li:hover .underline {
+    background-color: white;
+    width: 100%;
+  }
+  
+  
+  .navbar-container ul li:active a {
+    transition: none;
+    color: rgba(255,255,255,0.76);
+  }
+  
+  .navbar-container ul li:active .underline {
+    transition: none;
+    background-color: rgba(255,255,255,0.76);
+  }

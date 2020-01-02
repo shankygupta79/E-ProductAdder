@@ -1,0 +1,90 @@
+.y {
+    background-color: transparent;
+    display: block;
+    height: 1px;
+    border-width: 0;
+    border-top: 1px solid #e7e7e7;
+    line-height: 19px;
+    margin-top: 0;
+    margin-bottom: 14px;
+}
+.additional:hover{
+    text-decoration: underline;
+}
+.save{
+    color: #555555;
+    font-size: 13px;
+}
+.mrp{
+    color: #555555;
+    font-size: 20px;
+}
+.name{
+    color: #111111;
+    font-size: 27px;
+    font-weight: bold;
+    vertical-align:top;
+    padding:0px;
+    margin:0px;
+}
+.blk{
+    height: 600px;
+}
+.blk div{
+    height: 100px;
+    padding: 5%;
+    opacity: 0.4; 
+    cursor: pointer; 
+    border-style: solid;
+    border-radius: 5%;
+    margin: 5%;
+}
+.blk div:hover{
+    opacity: 1; 
+}
+.blk div img{
+    height: 100%;
+    width: 100%;
+}
+.column img {
+    opacity: 0.5; 
+    cursor: pointer; 
+}
+  
+.column img:hover {
+    opacity: 1;
+}
+.company{
+    color: #111111;
+    font-size: 20px;
+}
+.x{
+    float: left;
+}
+
+.price{
+    color:#B12704;
+    font-size:23px;
+}
+.xy{
+    height: 190px;
+    width: 150px;
+    max-height: 100vh;
+    max-width: 100%;
+    object-fit:scale-down;
+    
+}
+.but{
+    width: 100%;
+    background-image:linear-gradient(#f5ca2f,#f28507);
+    color: black;
+    margin: 3%;
+    border-color: chocolate;
+}
+
+.tag{
+    color: #0066C0;
+    font-size: 13px;
+}
+
+

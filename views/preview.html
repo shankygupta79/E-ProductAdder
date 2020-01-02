@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://unpkg.com/axios@0.2.1/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href='https://e-prod-adder.herokuapp.com/preview/css'>
+    <link rel="stylesheet" href='https://e-prod-adder.herokuapp.com/css'>
+    <link rel="stylesheet" href='https://e-prod-adder.herokuapp.com/css2'>
+    <script type="text/javascript" src="https://e-prod-adder.herokuapp.com/preview/magicjs"></script>
+    <link rel="stylesheet" type="text/css" href="https://e-prod-adder.herokuapp.com/preview/magic">
+    <meta charset="UTF-8">
+  <title>Preview</title>
+</head>
+<body >
+    
+
+<div id="preview">
+  <div class="navbar-container row" >
+    <div class="col-sm-2"></div>
+    <input class=" col-sm-5 form-control text2"  v-model="search" type="text" id="text2" placeholder="Search">
+    <button class="col-sm-2 btn btn-success" v-if="bool2" id="myBtn" type="submit">Search</button>
+    <div class="col-sm-1" v-if="!bool2"></div>
+    <button class="col-sm-2 btn btn-success" v-if="!bool2" id="myBtn" type="submit">Search</button> 
+    <div class="col-sm-2"></div>
+  </div>
+<div class="row modal"  id="myModal">
+  <div class="row " >
+      <div class="col-sm-2" style="float: left;"></div>
+      <div    class="col-sm-6">
+       <input class=" form-control" style="box-shadow: 1px 5px 7px 0 rgba(0,0,0,0.8)"  v-model="search" type="text" id="text" placeholder="Search">
+        <ul style="box-shadow: 1px 5px 7px 0 rgba(0,0,0,0.8);list-style-type:none;"  class="list-group-item">
+        <li  v-for="(i,i1) in list" v-if="i1<4" ><a v-bind:href="'preview?id='+i['P_ID']">{{i['name']}}</a></li>
+        </ul>
+      </div>
+       <div class="col-sm-4" style="float: left;"></div></div>
+  </div>
+<div class="navbar-container bg row">
+  <ul>
+          <li class="nav-link " style="margin-right: 10px">
+                  <a href="/">Home</a>
+                  <div class="underline"></div>
+          </li>
+          <li class="nav-link" style="margin-right: 10px">
+                  <a  href="/cart">Cart</a>
+                  <div class="underline"></div>
+          </li>
+          <li class="nav-link" style="margin-right: 10px">
+            <a href="/add_prod">Add Product</a>
+            <div class="underline"></div>
+          </li>
+          <li class="nav-link" style="margin-right: 10px;">
+              <a  href="/add_cat">Add Category</a>
+              <div class="underline"></div>
+          </li>
+        </li>
+        <li class="nav-link" style="margin-right: 10px;">
+            <a href="/manage_prod">Manage Product</a>
+            <div class="underline"></div>
+        </li>
+          <li class="nav-link"style="margin-right: 10px">
+            <a href="/view_cat">View Categories</a>
+            <div class="underline"></div>
+          </li>
+          
+        </ul><br>
+</div>
+
+
+  <br>
+  <h1> </h1>
+  <div class="row">
+  <div class="col-sm-1 x"></div>
+  <div class="col-sm-2 blk x">
+    <div v-if="x.img1"><img v-bind:src="x.img1" class="xy" @click="submit(1)"></div>
+    <div v-if="x.img2"><img v-bind:src="x.img2" class="xy" @click="submit(2)"></div>
+    <div v-if="x.img3"><img v-bind:src="x.img3" class="xy" @click="submit(3)"></div>
+    <div v-if="x.img4"><img v-bind:src="x.img4" class="xy" @click="submit(4)"></div>
+  
+  </div>
+  
+  <div class=" col-sm-3 x">
+    <div v-show="num==1"><a v-bind:href='x.img1' id="magnify" class="MagicZoom" data-options="zoomMode: magnifier"><img id="thumb" v-bind:src="x.img1"></a></div>
+    <div v-show="num==2"><a v-bind:href="x.img2" id="magnify" class="MagicZoom" data-options="zoomMode: magnifier"><img id="thumb" v-bind:src="x.img2"></a></div>
+    <div v-show="num==3"><a v-bind:href="x.img3" id="magnify" class="MagicZoom" data-options="zoomMode: magnifier"><img id="thumb" v-bind:src="x.img3"></a></div>
+    <div v-show="num==4"><a v-bind:href="x.img4" id="magnify" class="MagicZoom" data-options="zoomMode: magnifier"><img id="thumb" v-bind:src="x.img4"></a></div>
+  
+  </div>
+
+  <div class="col-sm-3 x">
+  <div class="name">{{x.name}}</div>
+  <div class="company">By {{x.company}}</div>
+  <span v-if="x.mrp!=x.price" class="mrp">M.R.P : </span>
+  <span v-if="x.mrp!=x.price" class="mrp "><strike >₹{{x.mrp}}</strike></span><br>
+  <span class="mrp">Price : </span>
+  <span class="price">₹{{x.price}}</span><br>
+  <span v-if="x.mrp!=x.price" class="save">Savings : </span>
+  <span v-if="x.mrp!=x.price" class="save ">₹{{x.mrp-x.price}}</span>
+  <hr class="y">
+  <div v-for="(i,i1) in selectedlist"><b><u>{{i[0]}}</u></b>
+    : {{i[1]}}
+  </div>
+  <span  v-for="(i,i1) in fieldlist"><b><u>{{i}}</u><br></b>
+  <div v-if="taglist[i1].length<=3" v-for="x in taglist[i1]" style="display: inline;">
+    <label class="radio-inline"><input type="radio" @click='check(x,i)' id='r' unchecked> {{x}} &nbsp</label>
+  </div><br  v-if="taglist[i1].length<=3">
+  <select v-model='value' v-if="taglist[i1].length>=4" class="form-control" @change='check(-1,i)' id="sel1">
+    <option value="" disabled selected>Select {{i}}</option>
+    <option  v-for="x in taglist[i1]" :value="x" >{{x}}</option>
+  </select>
+  </span><br>
+  <div class="row">
+  <img  v-if="x.cod"  class="col-sm-3" src="./preview/cod" >
+  <img v-if="!x.return" class="col-sm-3" src="./preview/noretrn" >
+  <img v-if="x.retrn" class="col-sm-3" src="./preview/retrn">
+  <img v-if="x.delivery" class="col-sm-3" src="./preview/delivery">
+  </div>
+  <div class="row">
+  
+  <span  v-if="x.cod"class="col-sm-3 tag" >Cash of Delivery</span>
+  <span v-if="!x.retrn" class="col-sm-3 tag" >Non Returnable</span>
+  <span v-if="x.retrn" class="col-sm-3 tag"  >10 Days Returnable</span>
+  <span v-if="x.delivery " class="col-sm-3 tag" >Delivery Possible</span></div>
+  <hr class="y">
+  <div v-if="quantity"><b><font color="green">IN STOCK</font></b></div>
+  <div  v-if="quantity==0"><b><font color="red">OUT OF STOCK</font></b></div>
+  <div  v-if="quantity<10"><font color="lightred" size>Hurry Up ! Few Items Left .</font>></div>
+  <div><li v-for="x in des">{{x}}</div>
+  <div class="additional tag" @click="additional=!additional">View Additional Info..</div>  
+  <div v-if="additional"><li v-for="x in ades">{{x}}</div>
+  </div>
+  <div class="col-sm-2 x">
+    <button class="btn btn-warning but" @click="cart()" id="myBtn">Add to Cart</button>
+    <button class="btn btn-warning but" id="myBtn">Add to Wishlist ♡</button> 
+  </div>
+  <div class="col-sm-1 x"></div>
+  </div>
+  <br><br><hr>
+  <h3>Recommended Products</h3>
+  <div class="row ">
+    <div class="card col-lg-3 col-sm-4 col-xs-12 " style="display: inline-block;" v-if="i.P_ID!=id && i1<4" v-for="(i,i1) in qprod" >
+      <img class="card-img-top xy"  style="width: 300px;height: 170px;" v-bind:src="i.img1" alt="Card image cap" >
+      <div class="card-body">
+        <h5 class="card-title name">{{i.name}}</h5><br>
+        <span class="company">By {{i.company}} </span><br>
+        <div class="row">
+        <div class="col-sm-6">
+        <span v-if="i.mrp!=i.price" class="mrp">M.R.P : </span>
+        <span v-if="i.mrp!=i.price" class="mrp "><strike >₹{{i.mrp}}</strike></span></div>
+        <div class="col-sm-6"><span class="mrp">Price : </span>
+        <span class="price">₹{{i.price}}</span></div><br></div>
+        <button type="button" @click="buy(i.P_ID)" class="btn btn-warning but">Buy</button>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+  
+  
+
+</div>
+
+
+
+  
+</body>
+<script>
+    
+    const log=new Vue({
+      el:"#preview",
+      data:{
+         x:'',num:1,value:'',qprod:'',
+         search:'',list:[],actual:[],
+         selectedlist:[],
+         additional:0,
+         des:'',ades:'',
+         quantity:11,
+         fieldlist:'',
+         taglist:[],bool2:1,
+         radio:'',cat:'',id:'',
+
+      },
+      created:function(){
+               this.load();
+      },
+      methods:{
+            load:function(){
+                   var app=this;
+                   axios.get('https://e-prod-adder.herokuapp.com/preview/id')
+                   .then(function(Response){
+                       var x=$.extend(Response[0],Response[1]);
+                       app.x=x;app.cat=x.category;app.id=x.P_ID;
+                       app.des=x.des.split('.');
+                       app.ades=x.ades.split('.');
+                       var st='https://e-prod-adder.herokuapp.com/preview/recommended?ct='+app.cat+'&id='+app.id;
+                        axios.get(st)
+                        .then(function(Response){
+                            app.qprod=Response;
+                        })
+                        axios.get('https://e-prod-adder.herokuapp.com/preview/cat?ct='+app.cat)
+                        .then(function(Response){
+                          app.fieldlist=Response.field.split(';;');
+                          app.fieldlist.pop();
+                          var x=Response.tag.split(";;");
+                          x.pop();
+                          for(var i=0;i<x.length;i++){
+                            var y=x[i].split(' , ');
+                            y.pop();
+                            app.taglist.push(y);
+                          }
+                        })
+                      })
+                    
+                    axios.get('https://e-prod-adder.herokuapp.com/names')
+                   .then(function(Response){
+                        for(var i=0;i<Response.length;i++){
+                          app.list.push(Response[i])
+                        }
+                         app.actual=app.list;
+                       
+                   })
+                   
+                   
+                   
+
+                },buy(xt){
+                  var st="https://e-prod-adder.herokuapp.com/preview?id="+xt;
+                  window.location.href=st;
+                },cart(){
+                  $.post('/cart/',{
+                    id:this.id,
+                  },function(data){
+                      window.location.href="https://e-prod-adder.herokuapp.com/cart";
+                  })
+                },submit(nme){
+                  this.num=nme;
+                  console.log(this.radio);
+                },check(x,i){
+                  if(x==-1){
+                    x=this.value;
+                    this.value='';
+                  }
+                  var index = this.fieldlist.indexOf(i);
+                  if (index > -1) {
+                    this.fieldlist.splice(index, 1);
+                    this.taglist.splice(index, 1);
+                  }
+                  this.selectedlist.push([i,x])
+                  
+                  
+                },searching(){
+                  var arr=[];
+                  
+                  for(i=0;i<this.list.length;i++){
+                    if(this.list[i]['name'].toLowerCase().includes(this.search.toLowerCase())){
+                      arr.push(this.list[i]);
+                    }
+                  }
+                  this.list=arr;
+
+
+                }
+      } 
+    })
+    var modal = document.getElementById("myModal");
+    var lastentry = "";
+    window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+            log.bool2=1;
+          }
+        }
+    $('#text ,#text2').keyup(function(event) {
+      if($('#text ,#text2').val() != lastentry) {   
+          modal.style.display = "block";
+          log.bool2=0;
+          if(log.search.length < lastentry.length){
+            log.list=log.actual;
+          }
+          log.searching();   
+      }
+      lastentry = $('#text,#text2').val()
+    });
+</script>
+</html>

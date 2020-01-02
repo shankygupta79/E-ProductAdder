@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://unpkg.com/axios@0.2.1/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href='https://e-prod-adder.herokuapp.com/css'><link rel="stylesheet" href='https://e-prod-adder.herokuapp.com/view_cat/css2'>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+  <title>View Categories</title>
+</head>
+    
+<div id="VCat">
+    <div class="navbar-container row" >
+        <div class="col-sm-2"></div>
+        <input class=" col-sm-5 form-control text2"  v-model="search" type="text" id="text2" placeholder="Search">
+        <button class="col-sm-2 btn btn-success" v-if="bool2" id="myBtn" type="submit">Search</button>
+        <div class="col-sm-1" v-if="!bool2"></div>
+        <button class="col-sm-2 btn btn-success" v-if="!bool2" id="myBtn" type="submit">Search</button> 
+        <div class="col-sm-2"></div>
+      </div>
+    <div class="row modal"  id="myModal">
+      <div class="row " >
+          <div class="col-sm-2" style="float: left;"></div>
+          <div    class="col-sm-6">
+           <input class=" form-control" style="box-shadow: 1px 5px 7px 0 rgba(0,0,0,0.8)"  v-model="search" type="text" id="text" placeholder="Search">
+            <ul style="box-shadow: 1px 5px 7px 0 rgba(0,0,0,0.8);list-style-type:none;"  class="list-group-item">
+            <li  v-for="(i,i1) in list" v-if="i1<4" ><a v-bind:href="'preview?id='+i['P_ID']">{{i['name']}}</a></li>
+            </ul>
+          </div>
+           <div class="col-sm-4" style="float: left;"></div></div>
+      </div>
+      <div class="navbar-container bg row">
+        <ul>
+                <li class="nav-link " style="margin-right: 10px">
+                        <a href="/">Home</a>
+                        <div class="underline"></div>
+                </li>
+                <li class="nav-link" style="margin-right: 10px">
+                        <a  href="/cart">Cart</a>
+                        <div class="underline"></div>
+                </li>
+                <li class="nav-link" style="margin-right: 10px">
+                  <a href="/add_prod">Add Product</a>
+                  <div class="underline"></div>
+                </li>
+                <li class="nav-link" style="margin-right: 10px;">
+                    <a  href="/add_cat">Add Category</a>
+                    <div class="underline"></div>
+                </li>
+              </li>
+              <li class="nav-link" style="margin-right: 10px;">
+                  <a href="/manage_prod">Manage Product</a>
+                  <div class="underline"></div>
+              </li>
+                <li class="nav-link active-link"style="margin-right: 10px">
+                  <a href="/view_cat">View Categories</a>
+                  <div class="underline"></div>
+                </li>
+                
+              </ul><br>
+      </div><br>
+      <h1 style="text-align: center;" >CATEGORIES </h1 style="text-align: center;" >
+        <div class="row">
+            <p class="col-sm-1"></p>
+            <table class="col-sm-10">
+        <tr class="row"><th v-for="i in heads" class="col-sm-4 md">{{i}}</th></tr>
+
+          <tr v-for="(j,j1) in cats" class="row">
+            <td class="col-sm-4 md">{{j1+1}}</td>
+            
+            <td class="col-sm-4 md">{{j.name}}<br><span v-if="(io.includes(j1))" v-for="(x,x1) in j.field"><b>{{x}}</b> :  {{j.tag[x1]}}<br></span> </td>
+            
+            <td class="col-sm-4 md">
+            <button type="button" class="btn btn-info "  @click='details(j1)'><b>View Details</b></button>
+             <button type="button" class="btn btn-success " @click='products(j.name)'><b>View Products</b></button>
+            </td>
+        </tr>
+
+      </table><p class="col-sm-1"
+    >
+    
+    
+      </
+    
+   v-else  
+    p></div>
+
+
+</div>
+</body>
+<script>
+    var log=new Vue({
+      el:"#VCat",
+      data:{
+        search:'',list:[],actual:[],
+         heads:["S.No","Name","Actions"],cats:[],
+         field:'',
+         view:-1,bool2:1,
+         io:[],
+      },
+      created:function(){
+               this.load();
+      },
+      methods:{
+            load:function(){
+                   var app=this;
+                   axios.get('https://e-prod-adder.herokuapp.com/view_cat/catlist')
+                   .then(function(Response){
+                       app.cats=Response;
+                       app.sort('name');
+                   })
+                   axios.get('https://e-prod-adder.herokuapp.com/names')
+                   .then(function(Response){
+                        for(var i=0;i<Response.length;i++){
+                          app.list.push(Response[i])
+                        }
+                         app.actual=app.list;
+                       
+                   })
+                   
+                },searching(){
+                  var arr=[];
+                  
+                  for(i=0;i<this.list.length;i++){
+                    if(this.list[i]['name'].toLowerCase().includes(this.search.toLowerCase())){
+                      arr.push(this.list[i]);
+                    }
+                  }
+                  this.list=arr;
+
+
+                },sort(field){
+                    this.field=field;
+                    this.cats.sort(this.compare)
+                },compare (a, b) {
+                    var nameA = a.name
+                    var nameB = b.name
+                    if (nameA < nameB) { return -1; }
+                    if (nameA > nameB) { return 1;}
+                    return 0;
+                },details(sno){
+                    if(Array.isArray(this.cats[sno].field)){
+
+                    }else{
+                    var z=this.cats[sno].field.split(';;');z.pop();
+                    this.cats[sno].field=z;
+                    var y=this.cats[sno].tag.split(';;');y.pop();
+                    this.cats[sno].tag=y;
+                    
+                    }
+                    this.io.push(sno);
+                },products(cat){
+                    var st="https://e-prod-adder.herokuapp.com/?cate="+cat;
+                    window.location.href=(st);
+                }
+      } 
+    })
+    var modal = document.getElementById("myModal");
+    var lastentry = "";
+    window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+            log.bool2=1;
+          }
+        }
+    $('#text ,#text2').keyup(function(event) {
+      if($('#text ,#text2').val() != lastentry) {   
+          modal.style.display = "block";
+          log.bool2=0;
+          if(log.search.length < lastentry.length){
+            log.list=log.actual;
+          }
+          log.searching();   
+      }
+      lastentry = $('#text,#text2').val()
+    });
+    
+    
+</script>
+</html>

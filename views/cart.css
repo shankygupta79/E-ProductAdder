@@ -1,0 +1,46 @@
+
+.company{
+    color: #111111;
+    font-size: 20px;
+}
+.category2{
+    color: grey;
+    font-size: 11px;
+}
+.category{
+    color: grey;
+    font-size: 17px;
+}
+.x{
+    float: left;
+}
+
+.price{
+    color:#B12704;
+    font-size:23px;
+}
+.instock{
+    font-size: 12px;
+}
+.xy{
+    height: 190px;
+    width: 150px;
+    max-height: 100vh;
+    max-width: 100%;
+    object-fit:scale-down;
+    
+}
+.but{
+    width: 100%;
+    background-image:linear-gradient(#f5ca2f,#f28507);
+    color: black;
+    margin: 3%;
+    border-color: chocolate;
+}
+
+.tag{
+    color: #0066C0;
+    font-size: 13px;
+}
+
+

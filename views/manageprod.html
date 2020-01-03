@@ -5,8 +5,8 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue"></script>
-    <link rel="stylesheet" href='https://e-prod-adder.herokuapp.com/css'>
-    <link rel="stylesheet" href='https://e-prod-adder.herokuapp.com/manage_prod/css2'>
+    <link rel="stylesheet" href='http://e-prod-adder.herokuapp.com/css'>
+    <link rel="stylesheet" href='http://e-prod-adder.herokuapp.com/manage_prod/css2'>
     
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
@@ -219,7 +219,7 @@
       methods:{
             load:function(){
                    var app=this;
-                   axios.get('https://e-prod-adder.herokuapp.com/manage_prod/id')
+                   axios.get('http://e-prod-adder.herokuapp.com/manage_prod/id')
                    .then(function(Response){
                      if(Response=='null'){
                        app.error=1;
@@ -242,7 +242,7 @@
                             app.arr.push(z);
                           }
                         }
-                        var link="https://e-prod-adder.herokuapp.com/add_prod/info?ct="+app.dropdown;
+                        var link="http://e-prod-adder.herokuapp.com/add_prod/info?ct="+app.dropdown;
                         axios.get(link)
                         .then(function(Response){
                               app.fieldlist=Response.field.split(";;");
@@ -250,7 +250,7 @@
                           })
                    })
                    
-                   axios.get('https://e-prod-adder.herokuapp.com/names')
+                   axios.get('http://e-prod-adder.herokuapp.com/names')
                    .then(function(Response){
                         for(var i=0;i<Response.length;i++){
                           app.list.push(Response[i])
@@ -262,7 +262,7 @@
                    
                 },go(){
                   app=this;
-                  var st="https://e-prod-adder.herokuapp.com/manage_prod?id="+this.id;
+                  var st="http://e-prod-adder.herokuapp.com/manage_prod?id="+this.id;
                   window.location.href=(st);
                 },searching(){
                   var arr=[];

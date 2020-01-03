@@ -103,12 +103,12 @@
       methods:{
             load:function(){
                    var app=this;
-                   axios.get('https://e-prod-adder.herokuapp.com/qprod')
+                   axios.get('http://e-prod-adder.herokuapp.com/qprod')
                    .then(function(Response){
                          app.qprod=Response;
                        
                    })
-                   axios.get('https://e-prod-adder.herokuapp.com/names')
+                   axios.get('http://e-prod-adder.herokuapp.com/names')
                    .then(function(Response){
                         for(var i=0;i<Response.length;i++){
                           app.list.push(Response[i])

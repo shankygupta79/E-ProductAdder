@@ -1,5 +1,5 @@
 # E-Product Adder
-http://e-prod-adder.herokuapp.com
+https://e-prod-adder.herokuapp.com
 
 A simple software/website which is designed as user friendly ! So that one can add Product and Categories of Product easily and it will automatically make  the E-Commerece look of the product.   
 

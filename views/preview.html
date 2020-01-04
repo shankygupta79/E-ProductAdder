@@ -144,7 +144,7 @@
     <div class="card col-lg-3 col-sm-4 col-xs-12 " style="display: inline-block;" v-if="i.P_ID!=id && i1<4" v-for="(i,i1) in qprod" >
       <img class="card-img-top xy"  style="width: 300px;height: 170px;" v-bind:src="i.img1" alt="Card image cap" >
       <div class="card-body">
-        <h5 class="card-title" style="font-weight: bold;font-size: 23px;">{{i.name}}</h5>
+        <h5 class="card-title namex" @click="buy(i.P_ID)" style="font-weight: bold;font-size: 20px;height: 50px;">{{i.name.slice(0,36)}}..</h5>
         <span class="company">By {{i.company}} </span><br>
         <div class="row">
         <div class="col-sm-6">

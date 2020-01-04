@@ -26,6 +26,6 @@ app.use('/manage_prod', require('./routes/manageprod'));
 app.use('/cart', require('./routes/cart'));
 
 app.listen(SERVER_PORT, function () {
-    console.log("Server started on http://localhost:3989/");
+    console.log("Server started on https://localhost:3989/");
 });
 //taskkill/f /im node.exe

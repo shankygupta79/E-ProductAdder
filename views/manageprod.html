@@ -170,7 +170,7 @@
         <br><div class="row" v-show="boolgo==1"> 
           <div class="col-sm-2"></div>
           <button type="button" class="btn btn-info col-sm-4" @click='add1()'><b>Save Details</b></button>
-          <button class="btn btn-danger col-sm-4"  id="myBtn"><b>Delete Product</b></button>
+          <button class="btn btn-danger col-sm-4"  id="myBt"><b>Delete Product</b></button>
           <div class="col-sm-2"></div>
         </div>
         <div class="modal2" id='myModal2'>
@@ -276,11 +276,12 @@
 
 
                 },del(){
-                console.log(this.id);
                 $.post('/manage_prod/del',{
                     id:this.id
                   },function(data){
                   })
+                  var st="http://localhost:3989/manage_prod"
+                  window.location.href=(st);
                 
                 },sort(field){
                     this.clicks++
@@ -352,9 +353,9 @@
       } 
     })
     var modal2 = document.getElementById("myModal2");
-    var btn = document.getElementById("myBtn");
+    var bt = document.getElementById("myBt");
     var span = document.getElementsByClassName("close")[0];
-    myBtn.onclick = function () {
+    myBt.onclick = function () {
         modal2.style.display = "block";
     }
     span.onclick = function () {

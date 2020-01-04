@@ -5,8 +5,9 @@ const Prod = require('../database').Prod
 const path=require('path')
 var id=0;
 route.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname,'../views/manageprod.html'))
   id=req.query.id;
+  res.sendFile(path.join(__dirname,'../views/manageprod.html'))
+  
 })
 
 route.get('/css2', (req, res) => {

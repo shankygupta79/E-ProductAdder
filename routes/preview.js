@@ -7,9 +7,9 @@ const path=require('path')
 var id=0;
 var ct='';
 route.get('/', (req, res) => {
-  
-  res.sendFile(path.join(__dirname,'../views/preview.html'))
   id=req.query.id;
+  res.sendFile(path.join(__dirname,'../views/preview.html'))
+  
 })
 route.get('/id',(req,res)=>{
   Prod.findOne({where:{P_ID:id}})

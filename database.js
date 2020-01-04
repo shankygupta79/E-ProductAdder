@@ -48,7 +48,6 @@ const Prod=db.define('product',{
   quantity:Sequelize.STRING(1000),
 
 })
-const x=10;
 db.sync()
     .then(() => console.log("Database has been synced"))
     .catch((err) => console.error("Error creating database"))

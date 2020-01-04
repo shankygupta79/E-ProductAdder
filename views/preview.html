@@ -91,7 +91,7 @@
   </div>
 
   <div class="col-sm-3 x">
-  <div class="name">{{x.name}}</div>
+  <div style="font-weight: bold;font-size: 23px;">{{x.name}}</div>
   <div class="company">By {{x.company}}</div>
   <span v-if="x.mrp!=x.price" class="mrp">M.R.P : </span>
   <span v-if="x.mrp!=x.price" class="mrp "><strike >₹{{x.mrp}}</strike></span><br>
@@ -114,7 +114,7 @@
   </span><br>
   <div class="row">
   <img  v-if="x.cod"  class="col-sm-3" src="./preview/cod" >
-  <img v-if="!x.return" class="col-sm-3" src="./preview/noretrn" >
+  <img v-if="!x.retrn" class="col-sm-3" src="./preview/noretrn" >
   <img v-if="x.retrn" class="col-sm-3" src="./preview/retrn">
   <img v-if="x.delivery" class="col-sm-3" src="./preview/delivery">
   </div>
@@ -238,7 +238,6 @@
                   })
                 },submit(nme){
                   this.num=nme;
-                  console.log(this.radio);
                 },check(x,i){
                   if(x==-1){
                     x=this.value;

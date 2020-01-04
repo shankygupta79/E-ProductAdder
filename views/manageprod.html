@@ -54,7 +54,7 @@
             </li>
           </li>
           <li class="nav-link active-link" style="margin-right: 10px;">
-              <a href="/manage_prod">Manage Product</a>
+              <a href="/manage_prod?id=undefined">Manage Product</a>
               <div class="underline"></div>
           </li>
             <li class="nav-link"style="margin-right: 10px">
@@ -219,12 +219,15 @@
       methods:{
             load:function(){
                    var app=this;
+              var link=window.location.href;
+              var are=link.split("id=");
+              var PID=parseInt(are[1])
                    axios.get('http://e-prod-adder.herokuapp.com/manage_prod/id')
                    .then(function(Response){
                      if(Response=='null'){
                        app.error=1;
                      }
-                        if(Response!='0' && Response!='null'){
+                        if(Response!='0' && Response!='null' && PID){
                           
                           app.boolgo=1;
                           var x=$.extend(Response[0],Response[1]);

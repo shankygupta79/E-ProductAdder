@@ -194,8 +194,8 @@
                    .then(function(Response){
                        var x=$.extend(Response[0],Response[1]);
                        app.x=x;app.cat=x.category;app.id=x.P_ID;
-                       app.des=x.des.split('.');
-                       app.ades=x.ades.split('.');
+                       app.des=x.des.split('\n');
+                       app.ades=x.ades.split('\n');
                        var st='https://e-prod-adder.herokuapp.com/preview/recommended?ct='+app.cat+'&id='+app.id;
                         axios.get(st)
                         .then(function(Response){

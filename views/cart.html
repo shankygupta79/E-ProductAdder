@@ -119,7 +119,7 @@
                    .then(function(Response){
                       app.cartid=Response;                      
                    })
-                   axios.get('https://e-prod-adder.herokuapp.com/qprod')
+                   axios.get('https://e-prod-adder.herokuapp.com/home/qprod')
                    .then(function(Response){
                         for(var i=0;i<Response.length;i++){
                           app.list.push(Response[i]);

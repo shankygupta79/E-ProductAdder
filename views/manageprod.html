@@ -253,7 +253,7 @@
                           })
                    })
                    
-                   axios.get('https://e-prod-adder.herokuapp.com/names')
+                   axios.get('https://e-prod-adder.herokuapp.com/home/names')
                    .then(function(Response){
                         for(var i=0;i<Response.length;i++){
                           app.list.push(Response[i])

@@ -2,8 +2,8 @@ const Sequelize = require('sequelize')
 //dbname','username','pass'
 //'database79', 'database79', 'hello3878','db4free.net'
 //'cp1jpd6gJR', 'cp1jpd6gJR', 'Ropg5v6S06',
-const db = new Sequelize('database79', 'database79', 'hello3878', {
-    host:'db4free.net',
+const db = new Sequelize('cp1jpd6gJR', 'cp1jpd6gJR', 'Ropg5v6S06', {
+    host:'remotemysql.com',
     dialect: 'mysql',
     port:3306,
   operatorsAliases: false,

@@ -2,7 +2,8 @@ const Sequelize = require('sequelize')
 //dbname','username','pass'
 //'database79', 'database79', 'hello3878','db4free.net'
 //'cp1jpd6gJR', 'cp1jpd6gJR', 'Ropg5v6S06',
-const db = new Sequelize('cp1jpd6gJR', 'cp1jpd6gJR', 'Ropg5v6S06', {
+//'eFx6DJVPM2', 'eFx6DJVPM2', 'XDIawT0voC'
+const db = new Sequelize('eFx6DJVPM2', 'eFx6DJVPM2', 'XDIawT0voC', {
     host:'remotemysql.com',
     dialect: 'mysql',
     port:3306,

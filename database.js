@@ -1,7 +1,6 @@
 const Sequelize = require('sequelize')
 const dotenv = require("dotenv")
 dotenv.config()
-console.log(process.env.HOST)
 //dbname','username','pass'
 const db = new Sequelize(process.env.DATABASE,process.env.DATABASE,process.env.PASSWORD, {
     host:process.env.HOST,
